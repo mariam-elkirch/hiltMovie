@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">HiltMovies</string>
+    <string name="go_to_favourite">Go To Favourite</string>
+    <string name="go_to_home">Go To Home</string>
 </resources>
