@@ -36,6 +36,7 @@ class MainActivity : AppCompatActivity() {
             moviesAdapter.setData(list)
 
         }
+
         binding.ToFavourite.setOnClickListener {
             val intent = Intent(this, FavouriteActivity::class.java)
             startActivity(intent)

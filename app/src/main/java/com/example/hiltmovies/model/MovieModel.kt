@@ -1,12 +1,5 @@
 package com.example.hiltmovies.model
 
-/*class MoviesResponse : ArrayList<MovieModel>()*/
-
-/*data class MovieModel(
-    val id: Int,
-    val image: Image,
-    val name: String
-)*/
 data class MoviesResponse(
     val page: Int?,
     val results: List<Result>?,
@@ -30,10 +23,3 @@ data class Result(
     val vote_average: Double,
     val vote_count: Int
 )
-
-
-/*
-data class Image(
-    val medium: String,
-    val original: String
-)*/

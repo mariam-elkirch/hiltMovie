@@ -10,7 +10,7 @@ public interface MovieDao {
     @Query("SELECT * From favourite")
     fun getAllFavourite(): LiveData<List<Favourite>>
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAllFav(fav:Favourite)
 
     @Delete

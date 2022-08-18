@@ -33,7 +33,7 @@ constructor(private val repository: MoviesRepository) : ViewModel() {
             if (response.isSuccessful){
                 _response.postValue(response.body()!!.results)
             }else{
-                Log.d("tag", "getAllTvShows Error: ${response.code()}")
+                Log.d("tag", "getAllTvShows Error: ${response.errorBody()}")
             }
         }
     }
