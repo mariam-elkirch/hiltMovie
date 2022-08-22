@@ -1,33 +1,39 @@
 package com.example.hiltmovies.displayMovie.view
 
+import android.R.id
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.hiltmovies.Favourite.view.FavouriteActivity
-import com.example.hiltmovies.displayMovie.viewmodel.MoviesViewModel
 import com.example.hiltmovies.databinding.ActivityMainBinding
+import com.example.hiltmovies.displayMovie.viewmodel.MoviesViewModel
 import com.example.hiltmovies.model.Favourite
 import com.example.hiltmovies.model.Result
 import dagger.hilt.android.AndroidEntryPoint
 
+
 @AndroidEntryPoint
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(),OnMovieClickListener{
 
     private val binding by lazy { ActivityMainBinding.inflate(layoutInflater) }
+    lateinit var moviesAdapter:MoviesAdapter
 
-    private val moviesAdapter by lazy { MoviesAdapter() }
 
     private val viewModel: MoviesViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
-
+        moviesAdapter =  MoviesAdapter()
+     moviesAdapter.setOnClickListener(
+           this
+        )
         binding.moviesRecyclerView.layoutManager = LinearLayoutManager(this)
         binding.moviesRecyclerView.adapter = moviesAdapter
 
@@ -67,7 +73,17 @@ class MainActivity : AppCompatActivity() {
                 Toast.makeText(this@MainActivity, "Movie added to database", Toast.LENGTH_SHORT).show();
 
             }
-            // at last we are adding this
-            // to our recycler view.
+
         }).attachToRecyclerView(binding.moviesRecyclerView)
-}}
+}
+
+    override fun onClick(favourite: Favourite) {
+
+        Log.i("tag",favourite.title+"Main Activity")
+        val intent = Intent(this, DetailsActivity::class.java)
+        intent.putExtra("id", favourite.title)
+        startActivity(intent)
+    }
+
+
+}

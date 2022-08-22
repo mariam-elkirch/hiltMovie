@@ -1,18 +1,25 @@
 package com.example.hiltmovies.displayMovie.view
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.hiltmovies.databinding.MovieItemBinding
+import com.example.hiltmovies.model.Favourite
 import com.example.hiltmovies.model.Result
 
 
-class MoviesAdapter : RecyclerView.Adapter<MoviesAdapter.MyViewHolder>() {
+class MoviesAdapter() : RecyclerView.Adapter<MoviesAdapter.MyViewHolder>() {
     inner class MyViewHolder(val binding: MovieItemBinding) :
         RecyclerView.ViewHolder(binding.root)
 
     private var moviesList = mutableListOf<Result>()
+    private  var  onMovieClickListener: OnMovieClickListener? = null
+
+    fun setOnClickListener(onMovieClickListener: OnMovieClickListener) {
+       this.onMovieClickListener = onMovieClickListener
+    }
 
     fun setData(moviesList: List<Result>) {
         this.moviesList = moviesList.toMutableList()
@@ -27,8 +34,10 @@ class MoviesAdapter : RecyclerView.Adapter<MoviesAdapter.MyViewHolder>() {
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val movie = moviesList.get(position)
+     val favourite =   Favourite(movie.id,movie.poster_path,movie.title)
         holder.binding.apply {
             textView.text = movie.title
+         movieCardView.setOnClickListener { onMovieClickListener?.onClick(favourite) }
             Glide.with(holder.binding.textView.context).load("https://image.tmdb.org/t/p/w500/${movie.poster_path}")
                     .into(holder.binding.imageView)
         }

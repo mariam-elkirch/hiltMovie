@@ -24,7 +24,7 @@ object NetworkModule {
         }
 
 
-   @ApiKeyInterceptorOkHttpClient
+  // @ApiKeyInterceptorOkHttpClient
    @Singleton
    @Provides
    fun providesApiKeyInterceptor(): Interceptor = ApiKeyInterceptor()
@@ -32,7 +32,7 @@ object NetworkModule {
     @Singleton
     @Provides
     fun providesOkHttpClient(httpLoggingInterceptor: HttpLoggingInterceptor,
-                             @ApiKeyInterceptorOkHttpClient apiKeyInterceptor: Interceptor): OkHttpClient =
+                            apiKeyInterceptor: Interceptor): OkHttpClient =
         OkHttpClient
             .Builder()
             .addInterceptor(apiKeyInterceptor)

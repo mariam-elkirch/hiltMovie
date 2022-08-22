@@ -11,6 +11,7 @@ import com.example.hiltmovies.model.Result
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import timber.log.Timber
 import javax.inject.Inject
 
 
@@ -32,11 +33,14 @@ constructor(private val repository: MoviesRepository) : ViewModel() {
 
             if (response.isSuccessful){
                 _response.postValue(response.body()!!.results)
+
             }else{
                 Log.d("tag", "getAllTvShows Error: ${response.errorBody()}")
             }
         }
     }
+
+
     fun insertFav(favourite: Favourite) {
         viewModelScope.launch(Dispatchers.IO){
 
