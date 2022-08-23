@@ -77,11 +77,12 @@ class MainActivity : AppCompatActivity(),OnMovieClickListener{
         }).attachToRecyclerView(binding.moviesRecyclerView)
 }
 
-    override fun onClick(favourite: Favourite) {
+    override fun onClick(movie : Result) {
 
-        Log.i("tag",favourite.title+"Main Activity")
+        Log.i("tag",movie.title+"Main Activity")
         val intent = Intent(this, DetailsActivity::class.java)
-        intent.putExtra("id", favourite.title)
+
+        intent.putExtra("EXTRA_RESULT",movie)
         startActivity(intent)
     }
 
