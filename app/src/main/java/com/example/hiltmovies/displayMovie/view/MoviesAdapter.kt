@@ -34,10 +34,9 @@ class MoviesAdapter() : RecyclerView.Adapter<MoviesAdapter.MyViewHolder>() {
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val movie = moviesList.get(position)
-     val favourite =   Favourite(movie.id,movie.poster_path,movie.title)
         holder.binding.apply {
             textView.text = movie.title
-         movieCardView.setOnClickListener { onMovieClickListener?.onClick(favourite) }
+         movieCardView.setOnClickListener { onMovieClickListener?.onClick(movie) }
             Glide.with(holder.binding.textView.context).load("https://image.tmdb.org/t/p/w500/${movie.poster_path}")
                     .into(holder.binding.imageView)
         }

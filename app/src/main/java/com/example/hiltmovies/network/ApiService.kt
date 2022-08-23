@@ -5,7 +5,7 @@ import retrofit2.Response
 import retrofit2.http.GET
 
 interface ApiService {
-//api_key=bdee2da50a6d74db54386e74ecb18c4f
+
     @GET("movie?")
     suspend fun getAllMovies(): Response<MoviesResponse>
 

@@ -1,12 +1,15 @@
 package com.example.hiltmovies.model
 
-data class MoviesResponse(
+import java.io.Serializable
+
+@kotlinx.serialization.Serializable
+data class MoviesResponse (
     val page: Int?,
     val results: List<Result>?,
     val total_pages: Int?,
     val total_results: Int?
-)
-
+): Serializable
+@kotlinx.serialization.Serializable
 data class Result(
     val adult: Boolean,
     val backdrop_path: String,
@@ -22,4 +25,4 @@ data class Result(
     val video: Boolean,
     val vote_average: Double,
     val vote_count: Int
-)
+): Serializable
