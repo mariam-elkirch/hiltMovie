@@ -26,6 +26,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.ViewModelProvider
+import coil.compose.rememberAsyncImagePainter
 import coil.compose.rememberImagePainter
 import com.example.hiltmovies.R
 import com.example.hiltmovies.displayMovie.view.ui.theme.HiltMoviesTheme
@@ -41,15 +42,15 @@ class DetailsActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         viewModel = ViewModelProvider(this)[MoviesViewModel::class.java]
      val   movie = intent.getSerializableExtra("EXTRA_RESULT") as? Result
-        Log.i("tag",movie?.title+"Details Activity")
+
         setContent {
             HiltMoviesTheme {
-                // A surface container using the 'background' color from the theme
+
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-                    //Greeting(movie!!.title)
+
                     CharacterImageCard(movie!!)
                 }
             }
@@ -59,7 +60,8 @@ class DetailsActivity : ComponentActivity() {
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun CharacterImageCard(movie:Result) {
-    val imagerPainter = rememberImagePainter(data = "https://image.tmdb.org/t/p/w500/${movie.poster_path}")
+    val imagerPainter =
+        rememberAsyncImagePainter(model = "https://image.tmdb.org/t/p/w500/${movie.poster_path}")
 
     Card(
 
@@ -109,7 +111,7 @@ fun RatingBar(
 
     Row(
         modifier = Modifier.fillMaxWidth(),
-      // verticalAlignment = Alignment.CenterVertically,
+
 
         horizontalArrangement = Arrangement.Center
     ) {
