@@ -1,0 +1,26 @@
+package com.example.hiltmovies.di
+
+import android.content.Context
+
+import androidx.room.Room
+import com.example.hiltmovies.DataBase.DataBase
+import dagger.Module
+import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
+import dagger.hilt.components.SingletonComponent
+import javax.inject.Named
+
+@Module
+@InstallIn(SingletonComponent::class)
+object TestNetworkModule {
+
+    @Provides
+    @Named("testDatabase")
+    fun injectInMemoryRoom(@ApplicationContext context : Context) =
+        Room.inMemoryDatabaseBuilder(context, DataBase::class.java)
+            .allowMainThreadQueries()
+            .build()
+
+
+}

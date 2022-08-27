@@ -51,7 +51,7 @@ class DetailsActivity : ComponentActivity() {
                     color = MaterialTheme.colors.background
                 ) {
 
-                    CharacterImageCard(movie!!)
+                    displayMovieDetails(movie!!)
                 }
             }
         }
@@ -59,9 +59,9 @@ class DetailsActivity : ComponentActivity() {
 }
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
-fun CharacterImageCard(movie:Result) {
+fun displayMovieDetails(movie:Result) {
     val imagerPainter =
-        rememberAsyncImagePainter(model = "https://image.tmdb.org/t/p/w500/${movie.poster_path}")
+        rememberAsyncImagePainter(model = "https://image.tmdb.org/t/p/w500/${movie.backdrop_path}")
 
     Card(
 
@@ -87,10 +87,7 @@ fun CharacterImageCard(movie:Result) {
 
         }
     }}
-@Composable
-fun Greeting(movieName: String) {
-    Text(text = "Hello ${movieName}!")
-}
+
 @ExperimentalComposeUiApi
 @Composable
 fun RatingBar(
@@ -132,6 +129,14 @@ fun RatingBar(
 @Composable
 fun DefaultPreview() {
     HiltMoviesTheme {
-        Greeting("Spider Man")
+        val numbers = listOf(16,28)
+        val movie = Result(overview = "The Red Ribbon Army, an evil organization that was once destroyed by Goku in the past, has been reformed by a group of people who have created new and mightier Androids, Gamma 1 and Gamma 2," +
+                " and seek vengeance against Goku and his family.",
+        vote_average = 7.6, poster_path = "/rugyJdeoJm7cSJL1q4jBpTNbxyU.jpg"
+        , release_date = "2022-06-11", title = "Dragon Ball Super: Super Hero"
+        , adult = false, backdrop_path = "/ugS5FVfCI3RV0ZwZtBV3HAV75OX.jpg", genre_ids =numbers, id = 610150,
+        original_language = "ja", video = false, vote_count = 144
+        , original_title = "ドラゴンボール超 スーパーヒーロー", popularity = 7949.533)
+        displayMovieDetails(movie)
     }
 }

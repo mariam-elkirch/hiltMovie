@@ -7,16 +7,16 @@ import javax.inject.Inject
 
 class MoviesRepository
 @Inject
-constructor(private val apiService: ApiService, var movieDao: MovieDao) {
-    suspend fun getAllMovies() = apiService.getAllMovies()
+constructor(private val apiService: ApiService, var movieDao: MovieDao) : MoviesRepositoryInterface{
+    override suspend fun getAllMovies() = apiService.getAllMovies()
 
-    suspend fun insertFavourite(favourite: Favourite) {
+    override suspend fun insertFavourite(favourite: Favourite) {
         movieDao.insertAllFav(favourite)
     }
-    fun getAllFavourite(): LiveData<List<Favourite>> {
+    override fun getAllFavourite(): LiveData<List<Favourite>> {
         return  movieDao.getAllFavourite()
     }
-    suspend fun deleteFav(item: Favourite) {
+    override suspend fun deleteFav(item: Favourite) {
         movieDao.deleteFav(item)
     }
 }
