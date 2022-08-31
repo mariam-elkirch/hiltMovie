@@ -13,7 +13,7 @@ import javax.inject.Named
 
 @Module
 @InstallIn(SingletonComponent::class)
-object TestNetworkModule {
+object TestDataBaseModule {
 
     @Provides
     @Named("testDatabase")
