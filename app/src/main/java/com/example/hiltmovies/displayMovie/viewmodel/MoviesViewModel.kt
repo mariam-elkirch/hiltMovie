@@ -45,7 +45,7 @@ constructor( private val repository: MoviesRepositoryInterface) : ViewModel() {
     }
 
 
-    fun insertFav(favourite: Favourite) {
+    fun insertFav(favourite: Favourite) =
         viewModelScope.launch(Dispatchers.IO){
 
            repository.insertFavourite(favourite)
@@ -53,4 +53,4 @@ constructor( private val repository: MoviesRepositoryInterface) : ViewModel() {
     }
 
 
-}
+

@@ -22,7 +22,7 @@ import javax.inject.Named
 @SmallTest
 @ExperimentalCoroutinesApi
 @HiltAndroidTest
-class ArtDaoTest {
+class MovieDaoTest {
 
     @get:Rule
     var instantTaskExecutorRule = InstantTaskExecutorRule()
@@ -38,13 +38,7 @@ class ArtDaoTest {
 
     @Before
     fun setup() {
-        /*
-        database = Room.inMemoryDatabaseBuilder(
-            ApplicationProvider.getApplicationContext(),ArtDatabase::class.java)
-            .allowMainThreadQueries() //this is a test case, we don't want other thread pools
-            .build()
 
-         */
         hiltRule.inject()
         dao = database.movieDao()
     }
@@ -73,6 +67,15 @@ class ArtDaoTest {
 
         val list = dao.getAllFavourite().getOrAwaitValue()
         assertThat(list).doesNotContain(exampleFavourite)
+
+    }
+    @Test
+    fun getFavouriteTesting() = runTest {
+        val exampleFavourite = Favourite(title = "Top Gun: Maverick", id = 361743, poster_path = "/62HCnUTziyWcpDaBO2i1DX17ljH.jpg")
+        dao.insertAllFav(exampleFavourite)
+
+        val list = dao.getAllFavourite().getOrAwaitValue()
+        assertThat(list).contains(exampleFavourite)
 
     }
 

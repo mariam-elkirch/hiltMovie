@@ -38,7 +38,7 @@ class MainActivity : AppCompatActivity(),OnMovieClickListener{
         binding.moviesRecyclerView.adapter = moviesAdapter
 
         viewModel.responseTvShow.observe(this) { list ->
-
+            Log.i("tag",list.size.toString()+"Size" )
             moviesAdapter.setData(list)
 
         }
