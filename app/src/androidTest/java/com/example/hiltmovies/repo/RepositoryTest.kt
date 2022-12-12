@@ -42,6 +42,7 @@ class RepositoryTest {
             original_language = "ja", video = false, vote_count = 144
             , original_title = "ドラゴンボール超 スーパーヒーロー", popularity = 7949.533)
     )
+    val exampleFavourite =Favourite(title = "Top Gun: Maverick", id = 361743, poster_path = "/62HCnUTziyWcpDaBO2i1DX17ljH.jpg")
     @Before
     fun setup() {
 
@@ -50,7 +51,7 @@ class RepositoryTest {
 
     @Test
     fun insertFavouriteTesting() {
-        val exampleFavourite =Favourite(title = "Top Gun: Maverick", id = 361743, poster_path = "/62HCnUTziyWcpDaBO2i1DX17ljH.jpg")
+
        coEvery { repo.insertFavourite(exampleFavourite)  }
         favourites.add(exampleFavourite)
         Truth.assertThat(repo.getAllFavourite().value).contains(exampleFavourite)
@@ -58,7 +59,6 @@ class RepositoryTest {
     }
     @Test
     fun deleteFavTesting() {
-        val exampleFavourite =Favourite(title = "Top Gun: Maverick", id = 361743, poster_path = "/62HCnUTziyWcpDaBO2i1DX17ljH.jpg")
         coEvery { repo.insertFavourite(exampleFavourite)  }
         favourites.add(exampleFavourite)
         coEvery { repo.deleteFav(exampleFavourite)  }
@@ -68,7 +68,6 @@ class RepositoryTest {
     }
     @Test
     fun getAllFavouriteTesting() {
-        val exampleFavourite = Favourite(title = "Top Gun: Maverick", id = 361743, poster_path = "/62HCnUTziyWcpDaBO2i1DX17ljH.jpg")
         coEvery { repo.insertFavourite(exampleFavourite)  }
         favourites.add(exampleFavourite)
         Truth.assertThat(repo.getAllFavourite().value).contains(exampleFavourite)

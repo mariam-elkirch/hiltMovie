@@ -14,12 +14,16 @@ import com.example.pockomen.favourite.viewmodel.FavouriteViewModel
 import com.google.ar.core.Config
 import com.google.common.truth.Truth
 import com.google.common.truth.Truth.assertThat
+import io.mockk.coEvery
+import io.mockk.every
+import io.mockk.mockk
 import junit.framework.TestCase
 import junit.framework.TestCase.assertEquals
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.test.runTest
 
 import org.junit.Before
 import org.junit.Rule
@@ -32,8 +36,8 @@ import org.junit.runner.RunWith
 
 class MoviesViewModelTest:TestCase()  {
     private lateinit var moviesViewModel: MoviesViewModel
-    private lateinit var favouriteViewModel: FavouriteViewModel
-  private  lateinit var repository : FakeRepository
+   val repository = FakeRepository()
+    private val favourites = mutableListOf<Favourite>()
     @get:Rule
     var instantTaskExecutorRule = InstantTaskExecutorRule()
 
@@ -41,23 +45,23 @@ class MoviesViewModelTest:TestCase()  {
     var mainRule = MainCoroutineRule()
     @Before
     fun obtainViewModelInstance() {
-         moviesViewModel = MoviesViewModel(repository = FakeRepository() )
-        favouriteViewModel = FavouriteViewModel(repository = FakeRepository())
-         repository = FakeRepository()
+
+       moviesViewModel = MoviesViewModel(repository)
+
     }
 
     @Test
-    fun getAllMovies(){
+    fun getAllMoviesTest(){
      assertEquals(1, moviesViewModel.responseTvShow.getOrAwaitValueTest().size)
 
     }
 
     @Test
-    fun insertFav(){
+    fun insertFavTest(){
         val exampleFavourite = Favourite(title = "Top Gun: Maverick", id = 361743, poster_path = "/62HCnUTziyWcpDaBO2i1DX17ljH.jpg")
-      val value =  moviesViewModel.insertFav(exampleFavourite)
-        assertThat(value.isActive).isEqualTo(true)
 
-
+        favourites.add(exampleFavourite)
+        moviesViewModel.insertFav(exampleFavourite)
+       assertThat(repository.getAllFavourite().value).contains(exampleFavourite)
     }
 }
