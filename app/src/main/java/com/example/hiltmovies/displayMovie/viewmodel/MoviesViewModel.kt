@@ -7,7 +7,10 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.hiltmovies.model.Favourite
 import com.example.hiltmovies.model.MoviesRepository
+import com.example.hiltmovies.model.MoviesRepositoryInterface
 import com.example.hiltmovies.model.Result
+import dagger.BindsInstance
+import dagger.Provides
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -18,7 +21,8 @@ import javax.inject.Inject
 @HiltViewModel
 class MoviesViewModel
 @Inject
-constructor(private val repository: MoviesRepository) : ViewModel() {
+
+constructor( private val repository: MoviesRepositoryInterface) : ViewModel() {
 
     private val _response = MutableLiveData<List<Result>>()
     val responseTvShow: LiveData<List<Result>>
@@ -41,7 +45,7 @@ constructor(private val repository: MoviesRepository) : ViewModel() {
     }
 
 
-    fun insertFav(favourite: Favourite) {
+    fun insertFav(favourite: Favourite) =
         viewModelScope.launch(Dispatchers.IO){
 
            repository.insertFavourite(favourite)
@@ -49,4 +53,4 @@ constructor(private val repository: MoviesRepository) : ViewModel() {
     }
 
 
-}
+

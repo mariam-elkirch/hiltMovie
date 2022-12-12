@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.hiltmovies.model.Favourite
 import com.example.hiltmovies.model.MoviesRepository
+import com.example.hiltmovies.model.MoviesRepositoryInterface
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -13,7 +14,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class FavouriteViewModel @Inject
-constructor(private val repository: MoviesRepository) : ViewModel() {
+constructor(private val repository: MoviesRepositoryInterface) : ViewModel() {
     fun getAllFav(): LiveData<List<Favourite>> {
         return repository.getAllFavourite()
     }
